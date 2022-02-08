@@ -29,6 +29,7 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> addUser(@RequestBody Register register) {
+		//Add new User Record also adds the values into login id is generated automaticly
 		try {
 			Register result = userService.addUser(register);
 			return ResponseEntity.status(201).body(result);
@@ -43,13 +44,20 @@ public class UserController {
 	}
 
 	@GetMapping("/users/{id}")
-	public ResponseEntity<?> getUser(@PathVariable int id) throws IdNotFoundException {
+	public ResponseEntity<?> getUser(@PathVariable int id) {
+		//returns a user by given id
 		Register register = userService.getUserById(id);
-		return ResponseEntity.ok(register);
+//		return ResponseEntity.ok(register);
+		HashMap<String, String> map = new HashMap<>();
+		if(register!=null)
+			return ResponseEntity.ok(register);
+		map.put("message", "Sorry User With" + id + "not found");
+		return ResponseEntity.status(201).body(map);
 	}
 
 	@GetMapping("/users")
 	public ResponseEntity<?> getAllUserDetails() {
+		//returns all users
 		Optional<List<Register>> optional = userService.getAllUserDetails();
 		if (optional.isEmpty()) {
 			Map<String, String> map = new HashMap<>();
@@ -62,7 +70,7 @@ public class UserController {
 	@PostMapping("/authenticate/{email}/{password}")
 	public ResponseEntity<?> authenticateUser(@PathVariable("email") String email,
 			@PathVariable("password") String password) {
-
+		//checks if the given mail and password are present in mysql login table
 		String result = userService.authenticateUser(email, password);
 		return ResponseEntity.status(201).body(result);
 
@@ -70,15 +78,20 @@ public class UserController {
 
 	@PutMapping("/users/userID")
 	public ResponseEntity<?> updateUser(@RequestBody Register register) {
-
+		//updates the user
 		Register result = userService.updateUser(register);
+		if(result!=null)
 		return ResponseEntity.status(201).body(result);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("message", "Sorry User not found");
+		return ResponseEntity.status(201).body(map);
+		
 
 	}
 
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable("id") int id) {
-
+		//delete the user with given id
 		String result;
 		try {
 			HashMap<String, String> map = new HashMap<>();

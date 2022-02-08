@@ -19,13 +19,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "food")
 
 public class Food {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int foodId;
 	private String foodName;
 	private double foodCost;
 	@Enumerated(EnumType.STRING)
 	private EFoodType foodType;
 	private String foodPic;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int foodId;
+	
 
 }

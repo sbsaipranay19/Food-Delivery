@@ -11,7 +11,7 @@ public interface UserService {
 
 	public Register addUser(Register register) throws AlreadyExistsException;
 
-	public Register getUserById(int regId) throws IdNotFoundException;
+	public Register getUserById(int regId) ;
 
 	public Register[] getAllUsers();
 

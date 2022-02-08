@@ -32,7 +32,7 @@ public class FoodServiceImpl implements FoodService {
 				return food;
 			
 		} else {
-			return null;
+			return food;
 		}
 	}
 

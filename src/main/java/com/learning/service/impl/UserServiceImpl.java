@@ -48,12 +48,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Register getUserById(int regId) throws IdNotFoundException {
+	public Register getUserById(int regId){
 		Optional<Register> register3 = userRepository.findById(regId);
-		if (register3.isEmpty()) {
-			throw new IdNotFoundException("ID does not exists");
-		} else
+			if(register3!=null)
 			return register3.get();
+			return null;
 	}
 
 	@Override
@@ -116,7 +115,6 @@ public class UserServiceImpl implements UserService {
 		try {
 			login = service.getUserById(email);
 			if(login.getPassword().equals(password))
-				System.out.println(login.getPassword());
 				return "success";
 		} catch (IdNotFoundException e) {
 			// TODO Auto-generated catch block
