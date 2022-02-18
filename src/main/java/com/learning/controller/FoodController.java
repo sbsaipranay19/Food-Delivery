@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.learning.entity.EFoodType;
 import com.learning.entity.Food;
 import com.learning.exception.AlreadyExistsException;
 import com.learning.exception.IdNotFoundException;
@@ -93,5 +94,19 @@ public class FoodController {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(map);
 		}
 		return ResponseEntity.ok(optional.get());
+	}
+	
+	@GetMapping("food/{foodType}")
+	public ResponseEntity<?> getAllFoodByType(@PathVariable("foodType") String foodType) {
+		//sends all the food present till now
+//		String temp = foodType.toString();
+		Optional<List<Food>> optional = foodService.getFoodByType(foodType);
+//		if (optional.isEmpty()) {
+//			Map<String, String> map = new HashMap<>();
+//			map.put("message", "No Record Found");
+//			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(map);
+//		}
+		return ResponseEntity.ok(optional);
+		
 	}
 }

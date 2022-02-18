@@ -14,7 +14,7 @@ public interface FoodService {
 	
 	public Food getFoodById(int foodId) throws IdNotFoundException;
 	
-	public Optional<List<Food>> getFoodByType(EFoodType foodType);
+	public Optional<List<Food>> getFoodByType(String foodType);
 
 	public Optional<List<Food>> getAllFoods();
 
