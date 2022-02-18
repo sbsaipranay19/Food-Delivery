@@ -1,13 +1,11 @@
 package com.learning.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.learning.entity.EFoodType;
 import com.learning.entity.Food;
 import com.learning.exception.AlreadyExistsException;
 import com.learning.exception.IdNotFoundException;
@@ -16,7 +14,7 @@ import com.learning.service.FoodService;
 
 @Service
 public class FoodServiceImpl implements FoodService {
-	
+
 	@Autowired
 	private FoodRepository foodRepository;
 
@@ -29,15 +27,15 @@ public class FoodServiceImpl implements FoodService {
 		}
 		Food food1 = foodRepository.save(food);
 		if (food1 != null) {
-				return food;
-			
+			return food;
+
 		} else {
 			return food;
 		}
 	}
 
 	@Override
-	public Food getFoodById(int foodId) throws IdNotFoundException {
+	public Food getFoodById(Long foodId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		Optional<Food> food1 = foodRepository.findById(foodId);
 		if (food1.isEmpty()) {
@@ -46,18 +44,18 @@ public class FoodServiceImpl implements FoodService {
 			return food1.get();
 	}
 
-	@Override
-	public Optional<List<Food>> getFoodByType(String foodType) {
-		// TODO Auto-generated method stub
-		List<Food> list = foodRepository.findAll();
-		List<Food> res = new ArrayList<>();
-				for(Food food:list) {
-					if(food.getFoodType().toString().equals(foodType)) {
-						res.add(food);
-					}
-				}
-				return Optional.ofNullable(res);
-	}
+//	@Override
+//	public Optional<List<Food>> getFoodByType(String foodType) {
+//		// TODO Auto-generated method stub
+//		List<Food> list = foodRepository.findAll();
+//		List<Food> res = new ArrayList<>();
+//		for (Food food : list) {
+//			if (food.getFoodType().toString().equals(foodType)) {
+//				res.add(food);
+//			}
+//		}
+//		return Optional.ofNullable(res);
+//	}
 
 	@Override
 	public Optional<List<Food>> getAllFoods() {
@@ -66,16 +64,16 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
-	public String deleteFoodById(int foodId) throws IdNotFoundException {
+	public String deleteFoodById(Long foodId) throws IdNotFoundException {
 		// TODO Auto-generated method stub
 		Food optional;
 		try {
 			optional = this.getFoodById(foodId);
-			
-				foodRepository.deleteById(foodId);
-				return "Food Item Deleted";
-			
-		}catch (IdNotFoundException e) {
+
+			foodRepository.deleteById(foodId);
+			return "Food Item Deleted";
+
+		} catch (IdNotFoundException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			throw new IdNotFoundException(e.getMessage());
@@ -88,14 +86,10 @@ public class FoodServiceImpl implements FoodService {
 		Food food1 = foodRepository.save(food);
 		if (food1 != null) {
 			return food;
-		
-	} else {
-		return null;
-	}
-	}
 
-	
-	
-	
+		} else {
+			return null;
+		}
+	}
 
 }

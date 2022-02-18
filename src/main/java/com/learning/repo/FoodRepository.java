@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.learning.entity.Food;
 
 @Repository
-public interface FoodRepository extends JpaRepository<Food, Integer> {
-	Boolean existsById(int foodId);
+public interface FoodRepository extends JpaRepository<Food, Long> {
+	boolean existsById(Long i);
+
+	boolean existsByFoodName(String foodName);
 }

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learning.entity.EFoodType;
 import com.learning.entity.Food;
 import com.learning.exception.AlreadyExistsException;
 import com.learning.exception.IdNotFoundException;
 import com.learning.service.FoodService;
+
 @RestController
 public class FoodController {
 	@Autowired
@@ -28,7 +28,7 @@ public class FoodController {
 
 	@PostMapping("food/add")
 	public ResponseEntity<?> addFood(@RequestBody Food food) {
-		//adds the food into mysql table and id is generated automaticly
+		// adds the food into mysql table and id is generated automaticly
 		try {
 			Food result = foodService.addFood(food);
 			return ResponseEntity.status(201).body(result);
@@ -43,8 +43,8 @@ public class FoodController {
 	}
 
 	@GetMapping("food/{foodId}")
-	public ResponseEntity<?> getFood(@PathVariable int foodId) throws IdNotFoundException {
-		//takes the given id and searches the food with that id and returns it
+	public ResponseEntity<?> getFood(@PathVariable Long foodId) throws IdNotFoundException {
+		// takes the given id and searches the food with that id and returns it
 		Food food = foodService.getFoodById(foodId);
 		if (food != null)
 			return ResponseEntity.ok(food);
@@ -55,7 +55,7 @@ public class FoodController {
 
 	@PutMapping("food/foodID")
 	public ResponseEntity<?> updateFood(@RequestBody Food food) {
-		//update the food with new vales given
+		// update the food with new vales given
 		Food result = foodService.updateFood(food);
 		if (food != null)
 			return ResponseEntity.ok(result);
@@ -66,8 +66,8 @@ public class FoodController {
 	}
 
 	@DeleteMapping("food/{foodId}")
-	public ResponseEntity<?> deleteFood(@PathVariable("foodId") int foodId) {
-		//Delete the food item
+	public ResponseEntity<?> deleteFood(@PathVariable("foodId") Long foodId) {
+		// Delete the food item
 		String result;
 
 		HashMap<String, String> map = new HashMap<>();
@@ -83,10 +83,10 @@ public class FoodController {
 		return ResponseEntity.status(201).body(map);
 
 	}
-	
+
 	@GetMapping("food/allFood")
 	public ResponseEntity<?> getAllFoodDetails() {
-		//sends all the food present till now
+		// sends all the food present till now
 		Optional<List<Food>> optional = foodService.getAllFoods();
 		if (optional.isEmpty()) {
 			Map<String, String> map = new HashMap<>();
@@ -95,18 +95,18 @@ public class FoodController {
 		}
 		return ResponseEntity.ok(optional.get());
 	}
-	
-	@GetMapping("food/{foodType}")
-	public ResponseEntity<?> getAllFoodByType(@PathVariable("foodType") String foodType) {
-		//sends all the food present till now
-//		String temp = foodType.toString();
-		Optional<List<Food>> optional = foodService.getFoodByType(foodType);
-//		if (optional.isEmpty()) {
-//			Map<String, String> map = new HashMap<>();
-//			map.put("message", "No Record Found");
-//			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(map);
-//		}
-		return ResponseEntity.ok(optional);
-		
-	}
+
+//	@GetMapping("food/{foodType}")
+//	public ResponseEntity<?> getAllFoodByType(@PathVariable("foodType") String foodType) {
+//		//sends all the food present till now
+////		String temp = foodType.toString();
+//		Optional<List<Food>> optional = foodService.getFoodByType(foodType);
+////		if (optional.isEmpty()) {
+////			Map<String, String> map = new HashMap<>();
+////			map.put("message", "No Record Found");
+////			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(map);
+////		}
+//		return ResponseEntity.ok(optional);
+//		
+//	}
 }

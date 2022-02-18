@@ -12,13 +12,13 @@ public interface FoodService {
 	
 	public Food addFood(Food food) throws AlreadyExistsException;
 	
-	public Food getFoodById(int foodId) throws IdNotFoundException;
+	public Food getFoodById(Long foodId) throws IdNotFoundException;
 	
-	public Optional<List<Food>> getFoodByType(String foodType);
+//	public Optional<List<Food>> getFoodByType(String foodType);
 
 	public Optional<List<Food>> getAllFoods();
 
-	public String deleteFoodById(int foodId) throws IdNotFoundException;
+	public String deleteFoodById(Long foodId) throws IdNotFoundException;
 	
 	public Food updateFood(Food food);
 

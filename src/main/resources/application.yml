@@ -1,9 +1,6 @@
 spring:
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
   datasource:
-    url: jdbc:mysql://localhost:3306/fooddelivery
+    url: jdbc:mysql://localhost:3306/fooddelivery2
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,15 +8,19 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
     hibernate:
-      ddl-auto: update
       naming:
         physical-strategy: com.learning.utils.CustomNamingStrategy
-    show-sql: true
-  
+      ddl-auto: update
 server:
-  servlet:
-    context-path: /api
-  port: 9006 
+  port: 9006
+fooddelivery:
+  app:
+    jwtSecret: secretKey
+    jwtExpirationMs: 86400000
+management:
+  secutiry:
+    enabled: false
 
   
